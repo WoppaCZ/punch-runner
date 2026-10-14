@@ -7,12 +7,12 @@ int main() {
 
   const int startY = 92;
   const int Groundlvl = 80;
-  const float grav = 0.3f; //grav. k0nstanta
-  const float jump = 5.0f; // zrychleni vyskoku
+  const float grav = 8.0f; //grav. k0nstanta
+  const float jump = 20.0f; // zrychleni vyskoku
   
   int playerHeight = 12;
   int playerExtraWidth = 0;
-  Vector2 playerPos = {20-playerExtraWidth, 80+playerHeight}; //pozice kostky
+  Vector2 playerPos = {20-playerExtraWidth, 80-playerHeight}; //pozice kostky
   float playerVelY=0.0f; // Y zrychleni
   bool isjumping = false; // jestli uz nahodou neskace
 
@@ -20,7 +20,7 @@ int main() {
   
   
   
-  SetTargetFPS(30);
+  SetTargetFPS(120);
   
   while (!WindowShouldClose()) {
   
@@ -36,20 +36,24 @@ int main() {
     isjumping = true;
     }
 
-     if (IsKeyPressed(KEY_S)){
+     if (IsKeyDown(KEY_S)){
     playerHeight = 8;
     playerExtraWidth = 4;
-    playerPos.y = Groundlvl+playerHeight;
+    playerPos.y = Groundlvl-playerHeight;
     playerVelY = 0.0f;
     isjumping = false;
     }
-     playerExtraWidth=0;
-    playerVelY += grav * GetFrameTime(); // Apply gravity
+    else playerHeight=12;
+    
+    playerExtraWidth=0;
+    
+    
+     playerVelY += grav * GetFrameTime(); // Apply gravity
         playerPos.y += playerVelY * GetFrameTime(); // Apply velocity
 
         // --- Collision (Ground) ---
-        if (playerPos.y >= Groundlvl+playerHeight) {
-            playerPos.y = Groundlvl+playerHeight;
+        if (playerPos.y >= Groundlvl-playerHeight) {
+            playerPos.y = Groundlvl-playerHeight;
             playerVelY = 0.0f;
             isjumping = false;
         }
