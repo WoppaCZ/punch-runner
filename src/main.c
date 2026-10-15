@@ -24,6 +24,7 @@ int main() {
   typedef struct {
     Rectangle rect;
     bool active;
+    Color col;
   } Obstacle;
 
   Rectangle obsOver = {240,72,20,12};
@@ -53,20 +54,23 @@ int main() {
       if(obsCounter>=5)obsCounter=1;
       Obstacles[obsCounter].active = true;
       obsOpt= GetRandomValue(0,2);
-      switch(obsOpt)
+      switch(obsOpt){
       case 0:{
         Obstacles[obsCounter].rect = obsOver;
-
+        Obstacles[obsCounter].col = RAYWHITE;
         break;
       }
       case 1:{
         Obstacles[obsCounter].rect = obsUnder;
+        Obstacles[obsCounter].col = RED;
         break;
       }
       case 2:{
         Obstacles[obsCounter].rect = obsThrough;
+        Obstacles[obsCounter].col = BLUE;
         break;
       }
+    }
     }
     
 // MOVES
@@ -98,12 +102,18 @@ int main() {
 // UPDATE MOVING OBJ
      playerVelY += grav * GetFrameTime() * 15; // Apply gravity
         playerPos.y += playerVelY * GetFrameTime(); // Apply velocity
-        Obstacles.x -= 
+
         // --- Collision (Ground) ---
         if (playerPos.y >= Groundlvl-12-playerExtra.y) {
             playerPos.y = Groundlvl-12-playerExtra.y;
             playerVelY = 0.0f;
             isjumping = false;
+        }
+
+        for(int i = 0; i<4;i++){
+          Obstacles[i].rect.x -= GetFrameTime()*15;
+          if(Obstacles[i].rect.x<=-20) Obstacles[i].active = false;
+          if(Obstacles[i].active) DrawRectangleRec(Obstacles[i].rect,Obstacles[i].col);
         }
         // --- Drawing ---
         // Draw Player (Green Square)
