@@ -1,10 +1,25 @@
-# raylib VSCode C/C++
+# Punch Runner
+## Česky
+Punch runner je arkádová hra vytořena v knihovně Raylib.
+Cílem hry je přeskakovat, podlézat či prorážet překážky.
+Ve hře je postupné zvyšování rychlosti a počítání skóre.
 
-A cross-platform base project for raylib including debugging and syntax highlighting out-of-the-box.
+Hru jsem vytvořil za přibližně 10 až 15 hodin, včetně naučení se pracovat s raylibem.
 
-* Linux.
-* Windows.
-* Mac.
+### Ovládání:
+A = vyskočit
+S = podlézt / přímý pád (při skoku)
+D = zničit modrou zeď
 
-EN: [Installation guide](https://thescienceofcode.com/raylib-vscode-c-cpp-debug/).
-ES: [Guía de instalacion](https://thescienceofcode.com/es/raylib-vscode-c-cpp-debug/)
+## English
+Punch runner is an arcade game made in the Raylib library.
+The goal of the game is to jump over, slide under or to break through obstacles.
+The game has gradual difficulty increasing and score counting.
+
+I made the game in about 10 to 15 hours, including learning to work with raylib;
+
+### Controls:
+A = Jump
+S = Slide / Stomp
+D = Break the blue wall
+
