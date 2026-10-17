@@ -18,8 +18,11 @@ int main() {
   Vector2 playerPos = {16, Groundlvl-playerDefSize.y};
   float playerVelY=0.0f; // Y zrychleni
   bool isjumping = false; // jestli uz nahodou neskace
-  Rectangle punch = {32,68,16,12};
+  Rectangle punch = {32,68,20,12};
   bool isPunching = 0;
+
+  int playertextnum = 0;
+  Texture2D playerTex [4];
   
   //Obstacles
   float timer= 5.0f;
@@ -32,7 +35,7 @@ int main() {
     Color col;
   } Obstacle;
 
-  Rectangle obsOver = {240,72,12,12};
+  Rectangle obsOver = {240,72,12,8};
   Rectangle obsUnder = {240,0,12,70};
   Rectangle obsThrough = {240,0,12,80};
   Obstacle Obstacles[5];
@@ -51,11 +54,16 @@ int main() {
     BeginDrawing();
   
     ClearBackground(BLACK);
-  
+    
+    playerTex[0] = LoadTexture("./default-blob.png");
+    playerTex[1] = LoadTexture("./jump-blob.png");
+    playerTex[2] = LoadTexture("./slide-blob.png");
+    playerTex[3] = LoadTexture("./punch-blob.png");
+
     if(!isgameover){
     
       DrawRectangle(0,80,240,80, GRAY); //podlaha
-
+      playertextnum = 0;
       gamediff = 1.0f + ((float)score * 0.02f);
       // OBSTACLES
       timer-=GetFrameTime();
@@ -92,12 +100,13 @@ int main() {
       playerExtra.y=0;
       isPunching =0;
       //slide/stomp
-     if (IsKeyDown(KEY_S)){
+      if (IsKeyDown(KEY_S)){
       playerExtra.y = -6;
       playerExtra.x = 4;
       playerPos.y = Groundlvl-playerDefSize.y;
       playerVelY=0.0f;
       isjumping = false;
+      playertextnum = 2;
       }
       //jump
       if (IsKeyDown(KEY_A)){
@@ -107,11 +116,13 @@ int main() {
       }
       playerExtra.x = -4; 
       playerExtra.y = 4;
+      playertextnum = 1;
       }
       //destroy
-      if (IsKeyPressed(KEY_D)){
+      if (IsKeyDown(KEY_D)){
       playerExtra.x=4;
       isPunching = 1;
+      playertextnum = 3;
       }
       // ---MOVES
 
@@ -144,7 +155,8 @@ int main() {
         }
         // Draw Player (Green Square)
         // Note: DrawRectangle uses top-left corner as (x,y)
-        DrawRectangleRec(playerCollRec, GREEN);
+        DrawTexture(playerTex[playertextnum], playerCollRec.x, playerCollRec.y, WHITE);
+        
         DrawText(TextFormat("%d", score), (int)120, (int)5, 20, RAYWHITE);
       // ---UPDATE MOVING OBJ
     }
@@ -153,11 +165,15 @@ int main() {
     DrawText("Restart game to try again.", (int)20, (int)65,10,RAYWHITE);
     DrawText("Score: ", (int)5, (int)85, 20, RAYWHITE);
     DrawText(TextFormat("%d", score), (int)100, (int)86, 20, RAYWHITE);
+
     }
     EndDrawing();
   }
   
-  
+  UnloadTexture(playerTex[0]);
+  UnloadTexture(playerTex[1]);
+  UnloadTexture(playerTex[2]);
+  UnloadTexture(playerTex[3]);
   CloseWindow();
   
   return 0;
