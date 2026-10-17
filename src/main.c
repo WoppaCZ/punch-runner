@@ -46,7 +46,11 @@ int main() {
   
   InitWindow(screenWidth, screenHeight, "Punch Runner");
   
-  
+  playerTex[0] = LoadTexture("./default-blob.png");
+    playerTex[1] = LoadTexture("./jump-blob.png");
+    playerTex[2] = LoadTexture("./slide-blob.png");
+    playerTex[3] = LoadTexture("./punch-blob.png");
+
   SetTargetFPS(60);
   
   while (!WindowShouldClose()) {
@@ -55,10 +59,7 @@ int main() {
   
     ClearBackground(BLACK);
     
-    playerTex[0] = LoadTexture("./default-blob.png");
-    playerTex[1] = LoadTexture("./jump-blob.png");
-    playerTex[2] = LoadTexture("./slide-blob.png");
-    playerTex[3] = LoadTexture("./punch-blob.png");
+    
 
     if(!isgameover){
     
